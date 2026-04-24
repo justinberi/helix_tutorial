@@ -1,0 +1,8 @@
+[package]
+name = "lazyvim-practice"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "lazyvim-practice"
+path = "src/main.rs"
