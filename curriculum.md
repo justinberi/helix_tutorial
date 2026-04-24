@@ -448,7 +448,7 @@ reversed, and the selection is visible while you build it.
 | `t{c}` | `t`ill — up to but not including `{c}` |
 | `F{c}` `T{c}` | same, backwards |
 | `x` | select entire line; press again to extend line-wise downward |
-| `X` | extend to previous line |
+| `X` | extend selection to line bounds (line-wise); repeat to extend downward |
 | `%` | select the whole file |
 | `gg` | `g`o to file start (collapses selection to a point there) |
 | `ge` | `g`o to file `e`nd |
@@ -666,15 +666,19 @@ The character after the modifier names the object:
 | `p` | paragraph |
 | `f` | function (treesitter) |
 | `c` | comment (treesitter) |
-| `t` | test (treesitter) |
+| `t` | type / class (treesitter) |
+| `T` | test (treesitter) |
 | `a` | argument / parameter (treesitter) |
 | `g` | change hunk (git diff) |
+| `x` | (X)HTML element |
+| `m` | closest surround pair |
 
 > Note: `maa` reads as "**m**atch **a**round **a**rgument" — the double
 > `a` is not a typo. The first `a` is the around-modifier; the second is
-> the argument object. There is no default single-letter shortcut for
-> `class` or `type` — reach for `<A-o>` to expand the selection to the
-> next enclosing syntax node instead.
+> the argument object. For a class or type, use `mat` — `t` is the
+> type/class object (`T` is the separate test object). When you need a
+> non-named structural region, `<A-o>` expands the selection to the next
+> enclosing syntax node.
 >
 > The exact set of single-letter text-object keys varies slightly by
 > Helix version and language. When in doubt, press `mi` or `ma` and
@@ -1138,7 +1142,6 @@ tabular or list-shaped text.
 | Key | Action |
 |---|---|
 | `&` | Pad selections with spaces so each one starts at the same column |
-| `<A-&>` | Align right |
 
 Align is how you format columnar code when a formatter cannot.
 
@@ -1332,9 +1335,9 @@ multi-selection cannot express the edit.
 
 **Registers:**
 
-Every yank, delete, and change lands in a register. The default is the
-unnamed register `"`. You can target a named register with `"` before any
-operator:
+Every yank, delete, and change lands in a register. With no prefix, it
+goes to the default register. Use `"` as a *register-selection prefix*
+before any operator to target a specific named register:
 
 | Key | Meaning |
 |---|---|
@@ -1342,12 +1345,23 @@ operator:
 | `"ap` | Paste from register `a` |
 | `"+y` | Yank into the system clipboard |
 | `"+p` | Paste from the system clipboard |
+| `"*y` / `"*p` | Yank / paste with the X11 primary selection (Linux) |
 | `"_d` | Delete into the black-hole register (discard) |
 | `:reg` | Show contents of every register |
 
-> **Helix detail worth saying aloud:** unlike Vim, register prefixes also
-> gate macro replay and search — `"aQ` replays macro `a`, `/` reads the
-> search register `/`.
+A few read-only special registers are worth knowing:
+
+| Register | Contents |
+|---|---|
+| `/` | last search pattern |
+| `:` | last executed command |
+| `@` | last recorded macro |
+| `.` | current selection contents |
+| `%` | current file name |
+| `#` | selection indices (`1`, `2`, ...) |
+
+> **Helix detail worth saying aloud:** the `"` prefix gates macro replay
+> too — `"aQ` records into register `a`, `"aq` replays from `a`.
 
 **Macros:**
 
