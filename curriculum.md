@@ -1155,9 +1155,83 @@ State in character: "This is the replacement for Vim's `cgn` + `.`. Select
 every match, edit once. The grammar is still the same: `%` built the range,
 `s` filtered it, any operator would act on all of them." **Confirm.**
 
+---
+
+#### Worked example — editing tabular blocks (`class Status(Enum)`)
+
+A common real workflow: you have a block of similar lines — CSV rows, enum
+declarations, struct fields — where the columns are *aligned in meaning* but
+*not in column number*. Words have different lengths. Vim's column-mode
+won't help. Helix's per-selection motions will.
+
+The key idea: **once you have N selections, every motion runs on every
+selection independently.** `w` advances each cursor to *its own* next word.
+Columns are allowed to diverge — that is the entire point.
+
+Open `practice/python/models.py` and find:
+
+```python
+class Status(Enum):
+    ACTIVE = auto()
+    INACTIVE = auto()
+    PENDING = auto()
+    SUSPENDED = auto()
+```
+
+The names have different lengths (`ACTIVE` is 6, `SUSPENDED` is 9). Any
+edit that depends on column position will misalign. Two strategies handle
+this — *march* and *filter*.
+
+**Strategy A — march per-line cursors with motions (suffix the names).**
+
+Goal: turn each name into `ACTIVE_USER`, `INACTIVE_USER`, etc.
+
+Place the cursor on the `ACTIVE` line. Select all four enum lines: `x` to
+select the line, then `x` three more times to extend down. `s`plit on
+newlines with `<A-s>` — four selections, one per line. `g`oto line `h`ome
+with `gh` — every selection collapses to its line start. Now select the
+next `w`ord with `w` — every cursor independently jumps to its own enum
+name (`ACTIVE`, `INACTIVE`, `PENDING`, `SUSPENDED`). Each selection has a
+different length; the statusline still says `4 sel`. `a`ppend with `a`,
+type `_USER`, `<Esc>`. Every name now has the suffix. Undo with `u`.
+
+The step that matters: `w` did not march all four cursors to the same
+column — it marched each to *its own* word boundary. That is the workflow
+you wanted for ragged-width tabular data.
+
+**Strategy B — filter into selections directly (add an argument to each
+`auto()`).**
+
+Goal: change `auto()` into `auto(1)` on every line.
+
+Marching to the parens by motion is awkward (different column on each
+line). Filtering is sharper. Place the cursor on the `ACTIVE` line. Select
+four lines: `x` `x` `x` `x`. Now `s`elect within with `s`, type `\)`,
+`<Enter>` — every closing paren in the range is now its own selection.
+Statusline: `4 sel`. `i`nsert with `i` (puts the cursor *before* the
+selection), type `1`, `<Esc>`. Every line now reads `auto(1)`. Undo.
+
+The grammar: `x x x x` built the range, `s\)<Enter>` filtered to the four
+parens, `i1<Esc>` inserted at every one. No column counting, no marching.
+
+**When to march vs. when to filter:**
+
+| Situation | Tool |
+|---|---|
+| Walk each cursor to its line's next word / next delimiter | `<A-s>`, then `w` / `f,` / `t,` |
+| Land directly on every match of a pattern in a region | `s` with a regex |
+| Split a single line into its fields (CSV row) | `S` with the delimiter regex |
+
+Filtering wins whenever the targets can be described as a regex. Marching
+wins when the targets are positional — *the third word on each line*, *the
+first character after the indent*. **Confirm.**
+
+---
+
 **Success criteria:** Student creates multiple selections with `C`, splits
 on newlines with `<A-s>`, filters with `s`, and edits all selections in one
-operation.
+operation. Student can articulate when to march cursors with motions versus
+when to filter into selections with `s` / `S`.
 
 ---
 
