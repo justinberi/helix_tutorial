@@ -15,7 +15,7 @@ struggles:
 - Misread `<A-.>` as `Shift+A` then `.` instead of `Alt+.`. Clarify `<A-...>` = Alt whenever it appears for a new key.
 
 preferences:
-- Terse confirmations ("y") are the norm — don't ask for more.
+- Skip step-by-step confirmations. Bundle the steps of a lesson into one or two messages. Student will interrupt with a question or correction if anything is unclear or doesn't work — silence means it worked. Do not append "Confirm when ready." after each step.
 - When a step doesn't work, re-explain from a different angle rather than repeating the same instructions.
 
 teaching_notes:

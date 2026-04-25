@@ -29,8 +29,16 @@ pub trait Serializable {
 #[derive(Debug)]
 pub enum ValidationError {
     EmptyField(String),
-    InvalidFormat { field: String, reason: String },
-    OutOfRange { field: String, min: f64, max: f64, got: f64 },
+    InvalidFormat {
+        field: String,
+        reason: String,
+    },
+    OutOfRange {
+        field: String,
+        min: f64,
+        max: f64,
+        got: f64,
+    },
 }
 
 impl fmt::Display for ValidationError {
@@ -42,7 +50,12 @@ impl fmt::Display for ValidationError {
             ValidationError::InvalidFormat { field, reason } => {
                 write!(f, "field '{}' has invalid format: {}", field, reason)
             }
-            ValidationError::OutOfRange { field, min, max, got } => {
+            ValidationError::OutOfRange {
+                field,
+                min,
+                max,
+                got,
+            } => {
                 write!(
                     f,
                     "field '{}' out of range [{}, {}], got {}",
