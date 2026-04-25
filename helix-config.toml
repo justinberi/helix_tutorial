@@ -1,0 +1,48 @@
+theme = "dark_plus"
+
+[editor]
+bufferline = "multiple"
+cursorline = true
+cursorcolumn = false
+color-modes = true
+true-color = true
+text-width = 100
+auto-pairs = true
+auto-completion = true
+auto-format = true
+auto-save = false
+idle-timeout = 250
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = true
+character = "▏"
+skip-levels = 1
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+newline = "none"
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+
+[editor.soft-wrap]
+enable = false
+max-wrap = 25
+max-indent-retain = 0
+wrap-indicator = "↪ "

@@ -21,6 +21,36 @@ language server or switching Python's default LSP. Always show the diff
 before applying, and keep the teaching grounded in default keybindings so
 the grammar transfers everywhere.
 
+**The tutorial assumes `helix-config.toml` (in this repo) is applied** as
+`~/.config/helix/config.toml`. It enables the bufferline, indent guides,
+inlay hints, cursor-shape switching, and a few other quality-of-life
+settings the lessons reference. The grammar lessons themselves use only
+default keybindings; the config affects what the student *sees*, not what
+they *type*.
+
+**At the start of every session, before Lesson 0.1 or any resumed lesson:**
+
+1. Compare `helix-config.toml` (in this repo) with the student's current
+   `~/.config/helix/config.toml`.
+2. If the student's config is missing, empty, or differs from the tutorial
+   config, ask in character: *"The tutorial ships a recommended Helix
+   config (`helix-config.toml`) — bufferline, indent guides, inlay hints,
+   cursor-shape switching. Want me to install it as your
+   `~/.config/helix/config.toml`? I'll back up your existing one first."*
+3. If the student says yes, back up the existing config (e.g. to
+   `config.toml.bak`) and copy `helix-config.toml` over it. Tell the
+   student to restart Helix or run `:config-reload`.
+4. If the student declines, note it in `lesson_memory.md` under
+   `preferences` so future sessions don't keep asking, and skip any
+   lesson framing that depends on the visible UI elements the config
+   provides (e.g. don't promise the bufferline will appear).
+5. If the configs already match, say nothing and proceed.
+
+If the student asks what is in the config or why a setting was chosen,
+walk through it on request — each setting in `helix-config.toml` exists
+to make the lessons concrete or to bring Helix closer to a familiar
+IDE feel.
+
 ---
 
 ### Session Startup Sequence
@@ -804,7 +834,8 @@ windows, and text — using the space menu and the jump list.
 A buffer is a file loaded in memory. Helix keeps every opened buffer around
 until you explicitly close it with `:bc` (`:buffer-close`) or pick one to
 close from the buffer picker. The bufferline at the top shows all open
-buffers once you have more than one.
+buffers once you have more than one (assuming the tutorial config is
+applied — see `helix-config.toml`).
 
 **Opening files:**
 
@@ -891,7 +922,7 @@ Every file jump (pickers, `gd` from LSP, searches) is recorded. Walk it:
 |---|---|---|
 | `/` | search forward in current buffer | regex, live |
 | `?` | search backward in current buffer | regex, live |
-| `*` | search for word under cursor (adds selection to search register) |
+| `*` | copy current **selection** into the search register (not "word under cursor" — selection-first, like every other Helix verb) |
 | `<space>/` | global `/` search across the project (uses ripgrep-like matcher) |
 | `<space>'` | resume last picker |
 
@@ -906,9 +937,16 @@ reference layout. **Confirm.**
 
 Close the right window with `<C-w>q`. **Confirm.**
 
-Place the cursor on `Describable` in `main.rs`. Press `*` — the word is
+Place the cursor anywhere inside the word `Describable` in `main.rs`. Unlike
+Vim, Helix's `*` does not auto-find the word under the cursor — it copies
+*the current selection* into the search register. So first build the
+selection: `m`atch `i`nside `w`ord with `miw`. Now press `*` — the word is
 placed in the search register. Press `n` — selection jumps to the next
 occurrence. Press `n` again. **Confirm.**
+
+> Any selection works as a search pattern: a multi-word phrase, a regex
+> match, anything. `*` is just "use what is selected as the search". The
+> grammar is consistent.
 
 Global search with `<space>/` — type `fn validate`. The picker shows every
 match across the project with a preview pane. `<Enter>` on one. You are now
