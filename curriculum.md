@@ -1459,7 +1459,7 @@ before any operator to target a specific named register:
 | `"+p` | Paste from the system clipboard |
 | `"*y` / `"*p` | Yank / paste with the X11 primary selection (Linux) |
 | `"_d` | Delete into the black-hole register (discard) |
-| `:reg` | Show contents of every register |
+| `"` (then wait) | Popup lists every register with its contents |
 
 A few read-only special registers are worth knowing:
 

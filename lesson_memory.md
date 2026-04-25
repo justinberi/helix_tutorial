@@ -2,7 +2,7 @@
 
 personality: Marvin
 
-current_lesson: 4.3
+current_lesson: 7.1
 
 completed_lessons:
 - 0.1: Modes, the UI, first keystrokes (prior session)
@@ -15,6 +15,10 @@ completed_lessons:
 - 3.2: Document/workspace symbols and hover in Python — `<space>s`, `<space>S`, `<space>k` (2026-04-25)
 - 4.1: Multi-selection — `C`, `<A-s>`, `s`, `,`. Worked Status(Enum) example both march and filter strategies (2026-04-25)
 - 4.2: Split/Filter/Align — `S`, `K`, `<A-K>`, `&` (2026-04-25)
+- 4.3: Surround/Comment/Case — `ms`/`md`/`mr`, `<C-c>`, `~`/`` ` ``/`<A-`>` (2026-04-25)
+- 5.1: Diagnostics navigation — `]d`/`[d`, `<space>d`/`<space>D` (2026-04-25)
+- 5.2: Code actions, rename, format — `<space>a`, `<space>r`, `=`/`:format`. Hit rust-analyzer range-format limitation; `:format` is the workaround (2026-04-25)
+- 6.1: Registers and macros — `"a`-prefix, `"aQ`/`"aq`, multi-selection vs macro tradeoff (2026-04-25)
 
 struggles:
 - Reaches for `w` to select a whole word from mid-word; needs `miw` reminder. Warm-up practiced 2026-04-25 — revisit if it resurfaces.
@@ -43,3 +47,5 @@ session_log:
 - 2026-04-25: Switched personality to Marvin. Completed Lesson 1.3 (repeat keys, dot-free model, undo/redo). Hiccup on `<A-.>` notation — student pressed `Shift+A` + `.` before realising it meant `Alt+.`. Phase 1 complete.
 - 2026-04-25: Completed Lessons 2.1 and 2.2. Built up the bundled `helix-config.toml` (bufferline, indent guides, inlay hints, statusline, cursor shapes, LSP progress messages). Added agent-instruction flow to prompt students about installing the config. Curriculum corrections committed: bufferline default, `*` selection-first behaviour. Lesson 3.1 LSP navigation worked after fixing corrupted `main.rs`. Stopped before completing 3.2 — Python LSP not yet installed; `setup.bash` written for student to run next session.
 - 2026-04-25: Resumed with `pylsp` already installed. Completed 3.2 (Python doc/workspace symbols, hover). Phase 3 closed. Completed 4.1 (multi-selection — `C`, `<A-s>`, `s`); added a "Worked example — editing tabular blocks" section to curriculum Lesson 4.1 using `class Status(Enum)` to demo march-with-motions vs filter-with-`s` for ragged-width tabular data. Student asked about CSV-style multi-cursor word-marching mid-lesson — answered, then folded the answer into the curriculum. Completed 4.2 (`S`, `K`, `<A-K>`, `&`). Stopped mid-4.3 (Surround/Comment/Case) — steps delivered but not all confirmed.
+- 2026-04-25 (later): Completed 4.3, 5.1, 5.2. In 5.2 student hit "no configured LSP for range format" with rust-analyzer (it doesn't implement range-format) — workaround is `:format` for whole-buffer; alternative is configuring `rustfmt` as an external formatter via `languages.toml` (not yet applied to bundled config; offer next session if relevant). Student also asked about workspace-undo for `<space>r` — explained Helix undo is per-buffer; recommended `git add -A` checkpoint before workspace renames, or rename back as the cleanest reversal. Stopped mid-6.1 (Registers and Macros) — steps delivered but not yet worked through. Only Lesson 7.1 (Capstone) remains.
+- 2026-04-25 (later still): Side-question — toggling line numbers. Added `line-number = "relative"` to bundled `helix-config.toml` and `~/.config/helix/config.toml`, committed as `a2119e0` and pushed. Also caught a curriculum bug: `:reg` was being taught for register inspection but it does not exist in Helix — corrected curriculum to "press `\"` and wait for which-key popup". Saved a feedback memory to verify Helix `:`-commands before teaching them. Completed 6.1 (registers/macros via `"aQ`/`"aq` and multi-selection comparison). Phase 6 closed. Lesson 7.1 (Capstone) delivered; student stopped before working through it.
