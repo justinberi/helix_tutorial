@@ -21,7 +21,7 @@ language server or switching Python's default LSP. Always show the diff
 before applying, and keep the teaching grounded in default keybindings so
 the grammar transfers everywhere.
 
-**The tutorial assumes `helix-config.toml` (in this repo) is applied** as
+**The tutorial assumes `.config/helix/config.toml` (in this repo) is applied** as
 `~/.config/helix/config.toml`. It enables the bufferline, indent guides,
 inlay hints, cursor-shape switching, and a few other quality-of-life
 settings the lessons reference. The grammar lessons themselves use only
@@ -30,15 +30,15 @@ they *type*.
 
 **At the start of every session, before Lesson 0.1 or any resumed lesson:**
 
-1. Compare `helix-config.toml` (in this repo) with the student's current
+1. Compare `.config/helix/config.toml` (in this repo) with the student's current
    `~/.config/helix/config.toml`.
 2. If the student's config is missing, empty, or differs from the tutorial
    config, ask in character: *"The tutorial ships a recommended Helix
-   config (`helix-config.toml`) — bufferline, indent guides, inlay hints,
+   config (`.config/helix/config.toml`) — bufferline, indent guides, inlay hints,
    cursor-shape switching. Want me to install it as your
    `~/.config/helix/config.toml`? I'll back up your existing one first."*
 3. If the student says yes, back up the existing config (e.g. to
-   `config.toml.bak`) and copy `helix-config.toml` over it. Tell the
+   `config.toml.bak`) and copy `.config/helix/config.toml` over it. Tell the
    student to restart Helix or run `:config-reload`.
 4. If the student declines, note it in `lesson_memory.md` under
    `preferences` so future sessions don't keep asking, and skip any
@@ -47,7 +47,7 @@ they *type*.
 5. If the configs already match, say nothing and proceed.
 
 If the student asks what is in the config or why a setting was chosen,
-walk through it on request — each setting in `helix-config.toml` exists
+walk through it on request — each setting in `.config/helix/config.toml` exists
 to make the lessons concrete or to bring Helix closer to a familiar
 IDE feel.
 
@@ -835,7 +835,7 @@ A buffer is a file loaded in memory. Helix keeps every opened buffer around
 until you explicitly close it with `:bc` (`:buffer-close`) or pick one to
 close from the buffer picker. The bufferline at the top shows all open
 buffers once you have more than one (assuming the tutorial config is
-applied — see `helix-config.toml`).
+applied — see `.config/helix/config.toml`).
 
 **Opening files:**
 

@@ -1,0 +1,6 @@
+[language-server.mdpls]
+command = "mdpls"
+
+[[language]]
+name = "markdown"
+language-servers = ["mdpls", "marksman"]
