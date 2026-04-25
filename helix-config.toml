@@ -33,6 +33,7 @@ newline = "none"
 
 [editor.lsp]
 display-messages = true
+display-progress-messages = true
 display-inlay-hints = true
 
 [editor.statusline]

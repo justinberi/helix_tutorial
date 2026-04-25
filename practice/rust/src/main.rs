@@ -1,15 +1,3 @@
-    let mut pipeline = Pipelineitem_b::new("user-import")
-        .add_stage(NormaliseStage)
-        .add_stage(EnrichStage::new("[imported] ", ""))
-        .add_stage(ValidateStage {
-            min_length: 5,
-            max_length: 80,
-        });
-
-    let inputs = [
-        "  Alice Johnson  ",
-        "Bob",
-        "Charlie Davis",
 // main.rs
 // Entry point for the LazyVim practice project.
 //
@@ -183,7 +171,7 @@ fn main() {
 
     print_header("Pipeline");
 
-    let mut pipeline = Pipelineitem_b::new("user-import")
+    let mut pipeline = Pipeline::new("user-import")
         .add_stage(NormaliseStage)
         .add_stage(EnrichStage::new("[imported] ", ""))
         .add_stage(ValidateStage {
